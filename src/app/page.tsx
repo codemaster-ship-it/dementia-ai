@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 interface Friend { _id: string; name: string; personality: string; voiceId: string; avatarUrl?: string; }
 
@@ -46,7 +47,8 @@ export default function Home() {
               <div className="text-sm text-muted-foreground">{f.personality}</div>
             </Card>
           ))}
-          {friends.length === 0 && <p className="text-muted-foreground">No friends yet. Add one from the admin page.</p>}
+          {friends.length === 0 && <p className="text-muted-foreground">No friends yet. Add one below.</p>}
+          <Link href="/add"><Button className="w-full text-lg py-6">Add someone to talk to</Button></Link>
         </div>
       </main>
     );
@@ -56,6 +58,9 @@ export default function Home() {
     <main className="min-h-screen flex flex-col max-w-md mx-auto p-4">
       <header className="flex items-center gap-3 mb-4">
         <Button variant="ghost" onClick={() => setSelected(null)}>←</Button>
+        <div className="w-12 h-12 rounded-full bg-primary/20 overflow-hidden flex items-center justify-center text-xl font-bold">
+          {selected.avatarUrl ? <img src={selected.avatarUrl} alt={selected.name} className="w-full h-full object-cover" /> : selected.name[0]}
+        </div>
         <h2 className="text-2xl font-bold">{selected.name}</h2>
       </header>
       <div className="flex-1 overflow-y-auto space-y-3 mb-4">
